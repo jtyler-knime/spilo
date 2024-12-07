@@ -124,7 +124,7 @@ COPY build_scripts/post_build.sh /builddeps/
 
 RUN sh /builddeps/post_build.sh && rm -rf /builddeps/
 
-RUN sed -e "s/^postgres:x:[^:]*:[^:]*:/postgres:x:101:103:/" /etc/passwd > /etc/passwd && mkdir /run-bck && cp -r /run/* /run-bck/
+#RUN sed -e "s/^postgres:x:[^:]*:[^:]*:/postgres:x:101:103:/" /etc/passwd > /etc/passwd && mkdir /run-bck && cp -r /run/* /run-bck/
 
 COPY scripts bootstrap major_upgrade /scripts/
 COPY launch.sh /
