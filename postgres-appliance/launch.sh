@@ -24,6 +24,7 @@ else
     ln -snf /usr/lib/locale/locale-archive.22 /run/locale-archive
 fi
 
+cp -r /run-bck/* /run/
 mkdir -p "$PGLOG" "$PGDATA" "$RW_DIR/postgresql" "$RW_DIR/tmp" "$RW_DIR/certs"
 # if [ "$(id -u)" -ne 0 ]; then
 #     sed -e "s/^postgres:x:[^:]*:[^:]*:/postgres:x:$(id -u):$(id -g):/" /etc/passwd > "$RW_DIR/tmp/passwd"
