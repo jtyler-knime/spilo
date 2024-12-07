@@ -19,7 +19,7 @@ FROM $BASE_IMAGE as dependencies-builder
 
 ARG DEMO
 
-ENV WALG_VERSION=v2.0.1
+ENV WALG_VERSION=REL2_0_STABLE
 
 COPY build_scripts/dependencies.sh /builddeps/
 
@@ -54,7 +54,7 @@ ARG WITH_PERL=false
 ARG DEB_PG_SUPPORTED_VERSIONS="$PGOLDVERSIONS $PGVERSION"
 
 # Install PostgreSQL, extensions and contribs
-ENV POSTGIS_VERSION=3.4 \
+ENV POSTGIS_VERSION=3.5 \
     POSTGIS_LEGACY=3.3 \
     BG_MON_COMMIT=ef60961eff92672b1e21f5260dc1211367da6f1f \
     PG_AUTH_MON_COMMIT=3d010e5959285c32b155e8064c9c9b57869aeca7 \
@@ -123,6 +123,8 @@ COPY pgq_ticker.ini $PGHOME/
 COPY build_scripts/post_build.sh /builddeps/
 
 RUN sh /builddeps/post_build.sh && rm -rf /builddeps/
+
+RUN sed -e "s/^postgres:x:[^:]*:[^:]*:/postgres:x:101:103:/" /etc/passwd > /etc/passwd && mkdir /run-bck && cp /run/* /run-bck/
 
 COPY scripts bootstrap major_upgrade /scripts/
 COPY launch.sh /
